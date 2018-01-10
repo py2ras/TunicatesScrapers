@@ -1,5 +1,9 @@
 #!/usr/bin/python
 
+# Program to plot information from xml files
+# @author: Sarthak Sharma <sarthaksharma@gatech.edu>
+# Date of last change: 01/10/2018
+
 import sys
 import matplotlib
 matplotlib.use("Agg")
