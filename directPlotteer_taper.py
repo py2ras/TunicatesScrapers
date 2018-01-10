@@ -1,3 +1,11 @@
+#!/usr/bin/python
+
+'''
+Program to plot a heatmap from multiple xml files(very specific)
+@author: Sarthak Sharma <sarthaksharma@gatech.edu>
+Date of last change: 01/10/2018
+'''
+
 import sys
 from matplotlib import cm
 import matplotlib
