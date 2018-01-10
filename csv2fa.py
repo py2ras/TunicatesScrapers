@@ -1,5 +1,12 @@
 #!/usr/bin/python
 
+'''
+Program to convert csv format to fasta format
+@author: Sarthak Sharma <sarthaksharma@gatech.edu>
+Date of last change: 01/10/2018
+'''
+
+
 import sys
 
 def main():
