@@ -1,5 +1,10 @@
 #!/usr/bin/python
 
+# Program to convert fasta to xlsx format
+# Requires xlsxwriter library
+# @author: Sarthak Sharma <sarthaksharma@gatech.edu>
+# Date of last change: 01/10/2018
+
 import sys
 import xlsxwriter
 
