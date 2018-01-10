@@ -1,3 +1,10 @@
+#!/usr/bin/python
+
+'''
+Program to plot bar charts from xml files (specific)
+@author: Sarthak Sharma <sarthaksharma@gatech.edu>
+Date of last change: 01/10/2018
+'''
 # [FIX ME] This program has a lot of hard-coded stuff. If it's needed in further analysis, clean it.
 
 import sys
