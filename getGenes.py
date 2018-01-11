@@ -1,4 +1,6 @@
-# outline
+#!/usr/bin/python
+
+# The script works as follows: 
 # input - csv file with common names of genes
 # output - file with regions of expression for the genes
 # meta - get the accession names using common names
@@ -7,6 +9,8 @@
 	# 'unique_gene_ids_txt' -> contains geneIDs with their unique names
 	# 'url_list.txt' -> contains urls to get gene dicts
 	# 'uniq_names.txt' -> contains the list of unique names of genes without their GeneIDs
+# @author - Sarthak Sharma <sarthaksharma@gatech.edu>
+# Date of Last Change - 01/11/2018
 
 import sys
 
@@ -22,7 +26,6 @@ def main():
 	# out_uniq(lines)
 	# out_urls(lines)
 	expression_urls(lines)
-
 
 # here input is 'unique_gene_ids.txt'	
 def out_uniq(lines):
@@ -56,4 +59,4 @@ def expression_urls(lines):
 if __name__ == '__main__':
 	main()
 
-# regex to select everything before the first '/'
+# [TODO] Add regex to select everything before the first '/'
