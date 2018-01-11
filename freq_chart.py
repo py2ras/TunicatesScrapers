@@ -2,9 +2,10 @@
 
 # Program to plot frequency of territorial expression
 # in clusters
-
 # Input - cluster.x.cxv
 # output - bar chart
+# @author - Sarthak Sharma <sarthaksharma@gatech.edu>
+# Date of Last Change - 01/11/2018
 
 import sys
 
