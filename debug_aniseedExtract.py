@@ -89,8 +89,9 @@ def get_table_details(genes_details):
 				#print len(table.findAll("td"))
 				#print table.findAll("td")
 				all_row_data = table.findAll("td")						# the main table data is stored in td
+				# the following condition is added to prevent errors
 				if (len(all_row_data)==4):
-					exprn_terr = all_row_data[3].string.encode("utf-8")							# expression territory is the 4th element; changing the encoding to utf-8 for better printing to file
+					exprn_terr = all_row_data[3].string.encode("utf-8")			# expression territory is the 4th element; changing the encoding to utf-8 for better printing to file
 					exprn_terr = exprn_terr.replace("\n","").replace(" ","")
 					if stage_number in stages_dict:
 						stages_dict[stage_number] += exprn_terr
@@ -106,10 +107,6 @@ def get_table_details(genes_details):
 		#	print table.findAll("tr")
 
 def main():
-#	gene_name = "test_gene" 
-#	common_name = "test_common"
-#	exprn_url = "file:///home/sarthak/Work/stolfi_lab/aniseed_extract/seed_page.html"
-#	lines = [[gene_name,common_name,exprn_url]]
 	if len(sys.argv) < 2:
 		print "Usage: ./",sys.argv[0]," <file name>"
 		quit()
@@ -118,7 +115,6 @@ def main():
 	# read in the file containing gene names 
 	with open(fileName,'rb') as inFile:
 		lines = inFile.readlines()
-
 	# construct the URLs from gene names
 	genes_details =	get_exprn_urls(lines) 
 	# get the expression details using the above details

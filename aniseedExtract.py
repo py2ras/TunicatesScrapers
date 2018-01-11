@@ -86,10 +86,8 @@ def get_table_details(genes_details):
 			stage_name = matchObj.group(3)
 			all_tables = article.find_all("table")
 			for table in all_tables:
-				#print len(table.findAll("td"))
-				#print table.findAll("td")
 				all_row_data = table.findAll("td")						# the main table data is stored in td
-				exprn_terr = all_row_data[3].string.encode("utf-8")							# expression territory is the 4th element; changing the encoding to utf-8 for better printing to file
+				exprn_terr = all_row_data[3].string.encode("utf-8")				# expression territory is the 4th element; changing the encoding to utf-8 for better printing to file
 				exprn_terr = exprn_terr.replace("\n","").replace(" ","")
 				if stage_number in stages_dict:
 					stages_dict[stage_number] += exprn_terr
@@ -99,16 +97,8 @@ def get_table_details(genes_details):
 		mixed_list.append(stages_dict)
 		out_dict[gene_name] = mixed_list
 	return out_dict	
-		#print mixed_list
-		#all_tables = soup.find_all("table")
-		#for table in all_tables:
-		#	print table.findAll("tr")
 
 def main():
-#	gene_name = "test_gene" 
-#	common_name = "test_common"
-#	exprn_url = "file:///home/sarthak/Work/stolfi_lab/aniseed_extract/seed_page.html"
-#	lines = [[gene_name,common_name,exprn_url]]
 	if len(sys.argv) < 2:
 		print "Usage: ./",sys.argv[0]," <file name>"
 		quit()
