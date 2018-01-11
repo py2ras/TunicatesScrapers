@@ -1,3 +1,5 @@
+#!/usr/bin/python
+
 # Program to plot frequency of territorial expression
 # in clusters
 
