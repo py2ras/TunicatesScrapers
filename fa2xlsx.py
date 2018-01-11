@@ -1,7 +1,9 @@
 #!/usr/bin/python
 
 # Program to convert fasta to xlsx format
+# This limits the number of rows in each sheet to 50
 # Requires xlsxwriter library
+# Outputs a single workbook
 # @author: Sarthak Sharma <sarthaksharma@gatech.edu>
 # Date of last change: 01/10/2018
 
