@@ -3,8 +3,10 @@
 # Program to extract transcript IDs
 # online database for C. intestinalis:
 # http://ghost.zool.kyoto-u.ac.jp/
+# This script utilises basic multithreading - just enough for the time-being
+# [NOTE] The multithreading might change in future
 # @author - Sarthak Sharma <sarthaksharma@gatech.edu>
-# Date of last modification - 12/18/2017
+# Date of last modification - 01/11/2018
 
 # import the required modules
 import urllib2
