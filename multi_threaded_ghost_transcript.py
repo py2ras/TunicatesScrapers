@@ -31,6 +31,7 @@ def get_url_from_csv(lines,col_num):
 	for line in lines:
 		details = line.split(',')
 		kh_id = details[col_num]
+		kh_id = kh_id.replace('"','')
 		url = "http://ghost.zool.kyoto-u.ac.jp/cgi-bin/fordetailkh21.cgi?name="+kh_id+";source=kh2013" 
 		details.append(url)
 		line_list.append(details)
@@ -47,7 +48,7 @@ def multi(line_list):
 # function to get transcript ids from GHOST and save as dictionary
 def get_transcript_ids(line):
 	#out_list = []
-	url = line[3]	
+	url = line[-1]	
 	try:
 		ghost_html = urllib2.urlopen(url)
 		soup = BeautifulSoup(ghost_html,"lxml")
@@ -72,7 +73,6 @@ def get_transcript_ids(line):
 		text = text.replace('\n','')
 	except IndexError as e:
 		return "None"+url
-	print text
 	return text 
 	#return out_list
 
@@ -80,7 +80,7 @@ def get_transcript_ids(line):
 def main():
 	# input should be a csv file with KH IDs
 	if len(sys.argv) < 4:
-		print "Usage: ./",sys.argv[0]," <input file name> <output file name> <column number with KH IDs>"
+		print "Usage: ",sys.argv[0]," <input file name> <output file name> <column number with KH IDs>"
 		quit()
 	fileName = sys.argv[1]
 	out_file = sys.argv[2]
@@ -91,8 +91,6 @@ def main():
 	
 	# construct the URLs from KH IDs
 	line_list = get_url_from_csv(lines,col_num)
-	#url_list = get_url_from_csv(lines,col_num)
-	#out_list = get_transcript_ids(url_list)
 	out_list = multi(line_list)
 	writeListToCsv(lines,out_list,out_file)
 
