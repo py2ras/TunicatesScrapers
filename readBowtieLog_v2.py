@@ -1,7 +1,7 @@
 #!/usr/bin/python
 
 '''
-Program to read Bowtie Logs which have been saved to files
+Program to read Bowtie (alignment program) Logs which have been saved to files
 And plot the information from them
 This is for stepwise-subtractive-mapping logs plot.
 Use this from respective directories of structural RNA alignments.
