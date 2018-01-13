@@ -1,9 +1,5 @@
 #!/usr/bin/python
 
-# Program to plot information from xml files
-# @author: Sarthak Sharma <sarthaksharma@gatech.edu>
-# Date of last change: 01/10/2018
-
 import sys
 import matplotlib
 matplotlib.use("Agg")
@@ -11,14 +7,16 @@ import matplotlib.pyplot as plt
 import numpy as np
 import xml.etree.ElementTree as ET
 from collections import Counter
+from operator import itemgetter
 
 def main():
-	if len(sys.argv) < 3:
-		print "Usage: ./",sys.argv[0], "<xml filename>"
+	if len(sys.argv) < 4:
+		print "Usage: ./",sys.argv[0], "<xml filename> <csv filename> <stage cutoff>"
 		quit()
 	reference_fileName = sys.argv[1]							# input should be gene_expression.xml
 	marker_fileName = sys.argv[2]
 	marker_genes = []
+	plot_fileName = marker_fileName[0:-4]
 	with open(marker_fileName) as mf:
 		lines = mf.readlines()
 	for line in lines[1:]:
@@ -46,15 +44,23 @@ def main():
 						#print expr_region[0:-1]
 						for x in set(expr_region[0:-1]):
 							expr_regions_list.append(x)
-	counts_dict = dict(Counter(expr_regions_list))
-	plotter(counts_dict)
+	counts_dict = Counter(expr_regions_list).items()
+	counts_dict.sort(key=itemgetter(1))				# sorting the dictionary here
+	plotter(counts_dict,plot_fileName)
 	#piePlotter(counts_dict)
 
-def plotter(counts_dict):
+def plotter(counts_dict,plot_fileName):
 	fig = plt.figure(figsize = (40.5,40.5))
-	plt.barh(range(len(counts_dict)),counts_dict.values(),align='center',alpha=0.5)
-	plt.yticks(range(len(counts_dict)),counts_dict.keys())
-	plt.savefig("clust4.png")
+	labels,values = zip(*counts_dict)
+	
+	indexes = np.arange(len(labels))
+	width = 1
+
+	plt.barh(indexes,values,width,align='center',alpha=0.5)
+	plt.yticks(indexes+width*0.5,labels)
+	
+	plt.savefig(plot_fileName + ".png")
+	print "Plot for " + plot_fileName + ".csv saved to " + plot_fileName + ".png"
 
 def piePlotter(counts_dict):
 	fig = plt.figure(figsize = (40.5,40.5))
