@@ -4,7 +4,7 @@
 # online tunicates' database
 # http://ghost.zool.kyoto-u.ac.jp/
 # @author - Sarthak Sharma <sarthaksharma@gatech.edu>
-# Date of last modification - 12/13/2017
+# Date of last modification - 01/13/2017
 
 # import the required modules
 import urllib2
@@ -15,6 +15,7 @@ import xlsxwriter
 
 # function to write to fasta
 def writeDictToFasta(out_dict,out_file):
+	out_file = out_file + ".fasta"
 	with open(out_file,'w') as outFile:	
 		for header,sequence in out_dict.iteritems():
 			outFile.write(header)
@@ -22,6 +23,7 @@ def writeDictToFasta(out_dict,out_file):
 
 # function to write to excel file
 def writeDictToExcel(out_dict,out_file):
+	out_file = out_file + ".xlsx"
 	workbook = xlsxwriter.Workbook(out_file)
 	worksheet = workbook.add_worksheet()
 	header_col0 = "SequenceName"
@@ -37,6 +39,7 @@ def writeDictToExcel(out_dict,out_file):
 		
 
 def writeListToFasta(out_list,out_file):
+	out_file = out_file + ".fasta"
 	with open(out_file,'w') as outFile:	
 		for sequence in out_list:
 			outFile.write(sequence)
@@ -49,11 +52,11 @@ def get_url_from_list(lines):
 	return url_list
 
 # function to get urls
-def get_url_from_csv(lines):
+def get_url_from_csv(lines,colnum):
 	url_list = []
 	for line in lines:
 		details = line.split(',')
-		transcript_id = details[2]
+		transcript_id = details[colnum]
 		url = "http://ghost.zool.kyoto-u.ac.jp/cgi-bin/fordetailkh21.cgi?name="+transcript_id+"&source=kh2013"
 		url_list.append(url)
 	return url_list
@@ -90,24 +93,26 @@ def get_sequence(url_list):
 	return out_dict
 # main function
 def main():
-	# input should be a 3-column csv file with second column as the transcript ID
-	if len(sys.argv) < 3:
-		print "Usage ./",sys.argv[0]," <input file name> <output file name"
+	# input should be a csv file 
+	if len(sys.argv) < 4:
+		print "Usage: ",sys.argv[0]," <input file name> <output file name> <column number with transcript IDs>"
 		quit()
 	fileName = sys.argv[1]
-	out_file = sys.argv[2]
+	ext_ind = fileName.index(".")
+	out_file = fileName[:ext_ind]
+	colnum = int(sys.argv[2])-1
 	# read in the file containing transcript IDs
 	with open(fileName,'rb') as inFile:
 		lines = inFile.readlines()
 
 	# construct the URLs from transcript IDs
-	url_list = get_url_from_csv(lines)
+	url_list = get_url_from_csv(lines,colnum)
 	#url_list = get_url_from_list(lines)
 	out_dict = get_sequence(url_list)		
 	#out_list = get_sequence(url_list)
-	#writeDictToFasta(out_dict,out_file)
+	writeDictToFasta(out_dict,out_file)
 	#writeListToFasta(out_list,out_file)
-	writeDictToExcel(out_dict,out_file)
+	#writeDictToExcel(out_dict,out_file)
 
 if __name__ == '__main__':
 	main()
