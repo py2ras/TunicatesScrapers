@@ -1,6 +1,5 @@
 # Scrapper - Aniseed and GHOST 
 
-Sarthak here. I am in love with Python and like to do everything with python.
 This repo contains scripts for scrapping from 2 online data bases - aniseed and ghost
 Both are Tunicate gene expression databases.
 They lack a good API and hence these were written. These are meant for really specific tasks.
