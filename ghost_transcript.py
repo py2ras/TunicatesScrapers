@@ -21,7 +21,7 @@ def writeListToCsv(lines,out_list,out_file):
 			else:
 				outFile.write(lines[i].replace("\n","")+","+transcript_id)
 				outFile.write("\n")
-			
+
 # function to get urls from csv file;
 # col_num - the column number in the csv file which
 # should be used to create urls
@@ -31,13 +31,13 @@ def get_url_from_csv(lines,col_num):
 		details = line.split(',')
 		kh_id = details[col_num]
 		kh_id = kh_id.replace('"','')
-		url = "http://ghost.zool.kyoto-u.ac.jp/cgi-bin/fordetailkh21.cgi?name="+kh_id+";source=kh2013" 
+		url = "http://ghost.zool.kyoto-u.ac.jp/cgi-bin/fordetailkh21.cgi?name="+kh_id+";source=kh2013"
 		url_list.append(url)
 	return url_list
 
 # function to get transcript ids from GHOST and save as dictionary
 def get_transcript_ids(url_list):
-	out_list = [] 
+	out_list = []
 	for url in url_list:
 		ghost_html = urllib2.urlopen(url)
 		soup = BeautifulSoup(ghost_html,"lxml")
@@ -72,7 +72,7 @@ def main():
 	# read in the file containing KH IDs
 	with open(fileName,'r') as inFile:
 		lines = inFile.readlines()
-	
+
 	# construct the URLs from KH IDs
 	url_list = get_url_from_csv(lines,col_num)
 	out_list = get_transcript_ids(url_list)

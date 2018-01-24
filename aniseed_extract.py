@@ -20,18 +20,17 @@ import sys											# to take command-line inputs
 
 def writeXML(out_dict,fileName):
 	root = ET.Element("genesExpressionTerritories")
-	
 	for gene_name,mixed_list in out_dict.iteritems():			# Each key in the dictionary is gene_name
 		gene_detail_list = mixed_list[0]
 		common_name = gene_detail_list[1]
 		exprn_url = gene_detail_list[2]
-		stages_dict= mixed_list[1] 
+		stages_dict= mixed_list[1]
 		gene = ET.SubElement(root,"gene")
-		gene.set("name",gene_name)	
+		gene.set("name",gene_name)
 		gene.set("commonName",common_name)
 		gene.set("url",exprn_url)					# not needed for now - uncomment, if needed in future
 		for stage in sorted(stages_dict):
-			exprn_terr = stages_dict[stage] 
+			exprn_terr = stages_dict[stage]
 			expr = ET.SubElement(gene,"expressionTerritories")
 			expr.set("stage",stage)
 			expr.text = exprn_terr
@@ -44,7 +43,7 @@ def writeXML(out_dict,fileName):
 	#tree.write("1500_2000.xml")
 
 def get_exprn_urls(lines):
-	genes_details = []	
+	genes_details = []
 	for line in lines[1:]:
 		details = line.split(',')
 		gene_name = details[0]
@@ -57,24 +56,24 @@ def get_exprn_urls(lines):
 def get_table_details(genes_details):
 	out_dict = {}											# key=GeneName(gene_name), value=MixedList(mixed_list)
 	num_gene = 0
-	for gene_detail_list in genes_details:	
+	for gene_detail_list in genes_details:
 		mixed_list = []										# will contain 2 lists - gene_detail_list and stages_list
 		gene_name = gene_detail_list[0]
 		exprn_url = gene_detail_list[2]
 		print "Working on: ",num_gene,"-",gene_name," ..."
 		num_gene += 1
 		# gene_detail_list = [gene_name,common_name,exprn_url]
-		mixed_list.append(gene_detail_list)	
+		mixed_list.append(gene_detail_list)
 		#stages_list = []
 		aniseed_html = urllib2.urlopen(exprn_url)
 		soup = BeautifulSoup(aniseed_html,"lxml")						# return a soup object
-		
+
 		# required information is in the information section of the HTML		
 		info_section = soup.find("section",{"id":"informations"})				# extract the content section from the aniseed page
-		
+
 		# each article contains single expression region info	
 		all_articles = info_section.find_all("article")
-		
+
 		stages_dict = {}
 		# every information that needs to be extracted should be extracted in the following loop
 		for article in all_articles:
@@ -93,10 +92,10 @@ def get_table_details(genes_details):
 					stages_dict[stage_number] += exprn_terr
 				else:
 					stages_dict[stage_number] = exprn_terr
-		
+
 		mixed_list.append(stages_dict)
 		out_dict[gene_name] = mixed_list
-	return out_dict	
+	return out_dict
 
 def main():
 	if len(sys.argv) < 2:
@@ -109,7 +108,7 @@ def main():
 		lines = inFile.readlines()
 
 	# construct the URLs from gene names
-	genes_details =	get_exprn_urls(lines) 
+	genes_details =	get_exprn_urls(lines)
 	# get the expression details using the above details
 	out_dict = get_table_details(genes_details)
 	writeXML(out_dict,fileName)

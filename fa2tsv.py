@@ -11,7 +11,7 @@ def main():
 	outFile = fileName[:-3] + ".tsv"
 	with open(fileName) as inFile:
 		lines = inFile.readlines()
-	
+
 	length = len(lines)
 	with open(outFile,"w") as outFile:
 		for i in range(0,length,3):

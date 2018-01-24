@@ -30,7 +30,7 @@ def parse_options():
 
 # define the usage function
 def usage():
-	print '\033[1m'+"Usage: "+ sys.argv[0]+'\033[0m', "[OPTIONS]"
+	print '\033[1m'+"Usage: "+ sys.argv[0]+'\033[0m', "[OPTIONS]"                   # '\033[1m' : BOLD begins; '\033[0m' : BOLD ends
 	print '\033[1m'
 	print "OPTIONS:"
 	print "\t-i, --input_uniq=FILE"+'\033[0m'
@@ -90,7 +90,7 @@ def main():
 		lines_kh_trid = in2.readlines()
 	out_list = get_kh_trids(lines_uniq,lines_kh_trid)
 	write2csv(out_list,output_file)
-		
+
 if __name__ == '__main__':
 	main()
 
