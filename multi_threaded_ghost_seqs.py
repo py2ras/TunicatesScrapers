@@ -75,7 +75,7 @@ def get_sequence(url):
 	try:
 		all_trs = table.find_all("tr")
 	except AttributeError as e:
-		return "None"+url
+		return "None"+url+"\n"
 
 	# gen_var_tr: tr for nucleotide sequence with genomic variations
 	gen_var_tr = all_trs[4]
