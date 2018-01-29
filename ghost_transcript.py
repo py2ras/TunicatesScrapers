@@ -31,11 +31,17 @@ def get_url_from_csv(lines,col_num):
 		details = line.split(',')
 		kh_id = details[col_num]
 		kh_id = kh_id.replace('"','')
+                matchObj = re.match(r'KH2013:(.*)',kh_id, re.M|re.I)#(KH\.[A-Z]+[0-9]+\.[0-9]+)',kh_id)
+                if matchObj:
+                    kh_id = matchObj.group(1)
+                else:
+                    print kh_id
+                    continue
 		url = "http://ghost.zool.kyoto-u.ac.jp/cgi-bin/fordetailkh21.cgi?name="+kh_id+";source=kh2013"
 		url_list.append(url)
 	return url_list
 
-# function to get transcript ids from GHOST and save as dictionary
+# function to get transcript ids from GHOST and save as dictionary def get_transcript_ids(url_list):
 def get_transcript_ids(url_list):
 	out_list = []
 	for url in url_list:
@@ -77,7 +83,7 @@ def main():
 	url_list = get_url_from_csv(lines,col_num)
 	out_list = get_transcript_ids(url_list)
 	print out_list
-	#writeListToCsv(lines,out_list,out_file)
+	writeListToCsv(lines,out_list,out_file)
 
 if __name__ == '__main__':
 	main()
