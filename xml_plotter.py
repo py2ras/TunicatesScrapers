@@ -52,13 +52,11 @@ def main():
 def plotter(counts_dict,plot_fileName):
 	fig = plt.figure(figsize = (40.5,40.5))
 	labels,values = zip(*counts_dict)
-	
 	indexes = np.arange(len(labels))
 	width = 1
 
 	plt.barh(indexes,values,width,align='center',alpha=0.5)
 	plt.yticks(indexes+width*0.5,labels)
-	
 	plt.savefig(plot_fileName + ".png")
 	print "Plot for " + plot_fileName + ".csv saved to " + plot_fileName + ".png"
 
@@ -71,6 +69,6 @@ def piePlotter(counts_dict):
 	patches,texts = plt.pie(sizes,colors=colors,shadow=True,startangle=90)
 	plt.legend(patches,labels,loc='lower right')
 	plt.savefig("pie_clust4.png")
-	
+
 if __name__ == "__main__":
 	main()

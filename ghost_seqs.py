@@ -16,7 +16,7 @@ import xlsxwriter
 # function to write to fasta
 def writeDictToFasta(out_dict,out_file):
 	out_file = out_file + ".fasta"
-	with open(out_file,'w') as outFile:	
+	with open(out_file,'w') as outFile:
 		for header,sequence in out_dict.iteritems():
 			outFile.write(header)
 			outFile.write(sequence)
@@ -36,11 +36,10 @@ def writeDictToExcel(out_dict,out_file):
 		worksheet.write(row_num,1,sequence.replace("\n",""))
 		row_num += 1
 	workbook.close()
-		
 
 def writeListToFasta(out_list,out_file):
 	out_file = out_file + ".fasta"
-	with open(out_file,'w') as outFile:	
+	with open(out_file,'w') as outFile:
 		for sequence in out_list:
 			outFile.write(sequence)
 
@@ -75,7 +74,7 @@ def get_sequence(url_list):
 		except AttributeError as e:
 			print url
 			continue
-			
+
 		# gen_var_tr: tr for nucleotide sequence with genomic variations
 		gen_var_tr = all_trs[4]
 		p = gen_var_tr.find("p",{"class":"Txtbox2"})

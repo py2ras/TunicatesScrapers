@@ -17,7 +17,7 @@ from multiprocessing.dummy import Pool as ThreadPool
 # function to write a dictionary to fasta
 def writeDictToFasta(out_dict,out_file):
 	out_file = out_file + ".fasta"
-	with open(out_file,'w') as outFile:	
+	with open(out_file,'w') as outFile:
 		for header,sequence in out_dict.iteritems():
 			outFile.write(header)
 			outFile.write(sequence)
@@ -37,12 +37,12 @@ def writeDictToExcel(out_dict,out_file):
 		worksheet.write(row_num,1,sequence.replace("\n",""))
 		row_num += 1
 	workbook.close()
-		
+
 # function to write a list to fasta file - required for multithreading
 # the multithreading function returns a list, actually
 def writeListToFasta(out_list,out_file):
 	out_file = out_file + ".fasta"
-	with open(out_file,'w') as outFile:	
+	with open(out_file,'w') as outFile:
 		for sequence in out_list:
 			outFile.write(sequence)
 
@@ -52,6 +52,7 @@ def get_url_from_csv(lines,colnum):
 	for line in lines:
 		details = line.split(',')
 		transcript_id = details[colnum]
+                transcript_id = transcript_id.replace("\n","")
 		url = "http://ghost.zool.kyoto-u.ac.jp/cgi-bin/fordetailkh21.cgi?name="+transcript_id+"&source=kh2013"
 		url_list.append(url)
 	return url_list
@@ -75,7 +76,7 @@ def get_sequence(url):
 		all_trs = table.find_all("tr")
 	except AttributeError as e:
 		return "None"+url
-		
+
 	# gen_var_tr: tr for nucleotide sequence with genomic variations
 	gen_var_tr = all_trs[4]
 	p = gen_var_tr.find("p",{"class":"Txtbox2"})
@@ -87,10 +88,10 @@ def get_sequence(url):
 	# certain sequences have spaces in them - should be removed
 	sequence = sequence.replace(" ","")
 	# replace all non-ATGC with N
-	sequence = re.sub(r"[^ATGCatgc]","N",sequence)	
+	sequence = re.sub(r"[^ATGCatgc]","N",sequence)
 	sequence = sequence + "\n\n"
 	out_seq = header + sequence
-	return out_seq 
+	return out_seq
 
 # main function
 def main():
