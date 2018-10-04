@@ -1,4 +1,4 @@
-# Scrapper - Aniseed and GHOST 
+# Scraper - Aniseed and GHOST 
 
 This repo contains scripts for scrapping from 2 online data bases - aniseed and ghost
 Both are Tunicate gene expression databases.
